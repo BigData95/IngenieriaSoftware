@@ -46,7 +46,7 @@ $(document) .ready(function (){
         function (event) {
         	event.preventDefault();
         	$.ajax({
-        		url:<?= base_url('login/ingresar')?>,
+        		url:<?= base_url('login/')?>,
         		type:"post",
         		data: $('#login').serialize(),
         		success: function (resp) {
