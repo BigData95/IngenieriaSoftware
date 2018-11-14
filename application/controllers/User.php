@@ -19,6 +19,7 @@ class User extends CI_Controller {
 		parent::__construct();
 		$this->load->library(array('session'));
 		$this->load->helper(array('url'));
+		$this->load->helper('html');
 		$this->load->model('user_model');
 		
 	}
@@ -99,28 +100,28 @@ class User extends CI_Controller {
 	 * @return void
 	 */
 	public function login() {
-		
-		// create the data object
+
+		// crea el objeto de datos
 		$data = new stdClass();
 		
-		// load form helper and validation library
+		// carga form helper y libreria de validacion  
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		
-		// set validation rules
+		// Reglas de validacion
 		$this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric');
 		$this->form_validation->set_rules('password', 'Password', 'required');
 		
 		if ($this->form_validation->run() == false) {
 			
-			// validation not ok, send validation errors to the view
+				// No cumple con las validaciones, limpia la ventana y mandala al usuario
 			$this->load->view('header');
 			$this->load->view('user/login/login');
 			$this->load->view('footer');
 			
 		} else {
 			
-			// set variables from the form
+			// Definimos las variables con los datos del form
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
 			
@@ -129,24 +130,30 @@ class User extends CI_Controller {
 				$user_id = $this->user_model->get_user_id_from_username($username);
 				$user    = $this->user_model->get_user($user_id);
 				
-				// set session user datas
+				// Establece datos de usuario para la sesion
 				$_SESSION['user_id']      = (int)$user->id;
 				$_SESSION['username']     = (string)$user->username;
 				$_SESSION['logged_in']    = (bool)true;
 				$_SESSION['is_confirmed'] = (bool)$user->is_confirmed;
 				$_SESSION['is_admin']     = (bool)$user->is_admin;
 				
-				// user login ok
+				// login ok
 				$this->load->view('header');
-				$this->load->view('user/login/login_success', $data);
+				//$this->load->view('user/login/login_success', $data);
+		
+				//Agregar condicional para saber si es administrador o Analista o Encuestador
+				//$this->load->view('user/administrador/main_administrador');
+				//$this->load->view('user/encuestador/main_encuestador');
+				//$this->load->view('user/analista/main_analista');
+				
 				$this->load->view('footer');
 				
 			} else {
 				
-				// login failed
+				// login fallo
 				$data->error = 'Usuario o contraseña incorrecta..';
 				
-				// send error to the view
+				// manda error y regresa la vista
 				$this->load->view('header');
 				$this->load->view('user/login/login', $data);
 				$this->load->view('footer');
@@ -165,12 +172,13 @@ class User extends CI_Controller {
 	 */
 	public function logout() {
 		
-		// create the data object
+	
+		// crea el objeto de datos
 		$data = new stdClass();
 
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 			
-			// remove session datas
+			// Quitamos informacion de la sesion
 			foreach ($_SESSION as $key => $value) {
 				unset($_SESSION[$key]);
 			}
