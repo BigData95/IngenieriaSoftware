@@ -142,7 +142,7 @@ class User extends CI_Controller {
 				//$this->load->view('user/login/login_success', $data);
 		
 				//Agregar condicional para saber si es administrador o Analista o Encuestador
-				//$this->load->view('user/administrador/main_administrador');
+				$this->load->view('user/administrador/main_administrador');
 				//$this->load->view('user/encuestador/main_encuestador');
 				//$this->load->view('user/analista/main_analista');
 				
