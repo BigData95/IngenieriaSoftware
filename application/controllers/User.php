@@ -130,7 +130,7 @@ class User extends CI_Controller {
 				$user_id = $this->user_model->get_user_id_from_username($username);
 				$user    = $this->user_model->get_user($user_id);
 				
-				// Establece datos de usuario para la sesion
+				// Establece datos de usuario para la sesion       ///MODIFICAR SEGUN LA NUEVA BASE DE DATAOS
 				$_SESSION['user_id']      = (int)$user->id;
 				$_SESSION['username']     = (string)$user->username;
 				$_SESSION['logged_in']    = (bool)true;
@@ -139,8 +139,9 @@ class User extends CI_Controller {
 				
 				// login ok
 				$this->load->view('header');
+
+
 				//$this->load->view('user/login/login_success', $data);
-		
 				//Agregar condicional para saber si es administrador o Analista o Encuestador
 				$this->load->view('user/administrador/main_administrador');
 				//$this->load->view('user/encuestador/main_encuestador');
