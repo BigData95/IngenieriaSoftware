@@ -3,9 +3,9 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="page-header">
-				<h1>Login exitoso</h1>
+				<h1>Usuario sin rol asignado</h1>
 			</div>
-			<p>Si ves esto, estas dentro!!.</p>
+			<p>Por favor contacta con el administrador para que te asigne un rol.</p>
 		</div>
 	</div><!-- .row -->
 </div><!-- .container -->

@@ -32,7 +32,7 @@ class User_model extends CI_Model {
 	 * @param mixed $password
 	 * @return bool true on success, false on failure
 	 */
-	public function create_user($first_name, $last_name, $username, $email, $password) {
+	public function create_user($first_name, $last_name, $username, $email, $password, $tipoUsuario) {
 		
 		$data = array(
 			'first_name' => $first_name,
@@ -40,12 +40,21 @@ class User_model extends CI_Model {
 			'username'   => $username,
 			'email'      => $email,
 			'password'   => $this->hash_password($password),
-			'created_at' => date('Y-m-j H:i:s'),
+			'id_tipo_usuario' => $tipoUsuario
+			//'created_at' => date('Y-m-j H:i:s'),
 
 		);
 		
-		return $this->db->insert('users', $data);
+		return $this->db->insert('usuario', $data);
 		
+	}
+
+	public function obtenTipoUsuario($username){
+		$this->db->select('id_tipo_usuario');
+		$this->db->from('usuario');
+		$this->db->where('username', $username);
+
+		return $this->db->get()->row('id_tipo_usuario');
 	}
 	
 	/**  Verifica el login 
@@ -59,7 +68,7 @@ class User_model extends CI_Model {
 	public function resolve_user_login($username, $password) {
 		
 		$this->db->select('password');
-		$this->db->from('users');
+		$this->db->from('usuario');
 		$this->db->where('username', $username);
 		$hash = $this->db->get()->row('password');
 		
@@ -76,11 +85,11 @@ class User_model extends CI_Model {
 	 */
 	public function get_user_id_from_username($username) {
 		
-		$this->db->select('id');
-		$this->db->from('users');
+		$this->db->select('id_usuario');
+		$this->db->from('usuario');
 		$this->db->where('username', $username);
 
-		return $this->db->get()->row('id');
+		return $this->db->get()->row('id_usuario');
 		
 	}
 	
@@ -93,8 +102,8 @@ class User_model extends CI_Model {
 	 */
 	public function get_user($user_id) {
 		
-		$this->db->from('users');
-		$this->db->where('id', $user_id);
+		$this->db->from('usuario');
+		$this->db->where('id_usuario', $user_id);
 		return $this->db->get()->row();
 		
 	}
