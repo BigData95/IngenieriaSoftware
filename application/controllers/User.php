@@ -18,7 +18,7 @@ class User extends CI_Controller {
 		
 		parent::__construct();
 		$this->load->library(array('session'));
-		$this->load->helper(array('url'));
+		$this->load->helper(array('url','form'));
 		$this->load->helper('html');
 		$this->load->model('user_model');
 		
@@ -144,11 +144,11 @@ class User extends CI_Controller {
 				$this->load->view('header');
 
 				if($tipoUsuario == 0){
-					$this->load->view('user/administrador/main_administrador');
+					$this->load->view('user/administrador/main_administrador', $data);
 				}else if($tipoUsuario == 1){
-					$this->load->view('user/analista/main_analista');
+					$this->load->view('user/analista/main_analista', $data);
 				}else if($tipoUsuario == 2){
-					$this->load->view('user/encuestador/main_encuestador');
+					$this->load->view('user/encuestador/main_encuestador', $data);
 				}else{
 					$this->load->view('user/login/login_success', $data);
 				}
@@ -207,5 +207,118 @@ class User extends CI_Controller {
 		}
 		
 	}
+
+	//Eliminar posiblemente
+	public function BotoncrearEstudio(){
+		$data = new stdClass();
+
+		$this->load->view('header');
+		$this->load->view('user/administrador/crearEstudio_view',$data);
+		$this->load->view('footer');
+
+	}
+
+
+	public function creacionEstudios(){
+	// crea el objeto de datos
+		$data = new stdClass();
+		
+		// carga form helper y libreria de validacion  
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		
+		// Reglas de validacion
+		$this->form_validation->set_rules('Nombre_estudio', 'Nombre_estudio', 'trim|required|min_length[3]|max_length[50]');
+		$this->form_validation->set_rules('Descripcion_estudio', 'Descripcion_estudio', 'trim|required|min_length[10]|max_length[200]');
+
+
+		if ($this->form_validation->run() === false) {
+			$this->load->view('header');
+			$this->load->view('user/administrador/crearEstudio_view', $data);
+			$this->load->view('footer');	
+
+		} else {
+
+			$Nombre_estudio = $this->input->post('Nombre_estudio');
+			$Descripcion_estudio = $this->input->post('Descripcion_estudio');
+
+			if ($this->user_model->crearEstudio($Nombre_estudio, $Descripcion_estudio)) {
+				$this->load->view('header');
+				$this->load->view('user/administrador/main_administrador', $data);
+				$this->load->view('footer');	
+
+			} else {
+				$data->error = 'Hubo un problema creando tu estudio :c Por favor inténtalo de nuevo.';
+				$this->load->view('header');
+				$this->load->view('user/administrador/main_administrado', $data);				
+				//$this->load->view('user/administrador/crearEstudio_view', $data);
+				$this->load->view('footer');
+			}
+		}
+
+		
+		
+
+
+	}
+
+	public function creacionCuestionario(){
+		$data = new stdClass();
+		
+		// carga form helper y libreria de validacion  
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		
+		// Reglas de validacion
+		$this->form_validation->set_rules('Nombre_estudio', 'Nombre_estudio', 'trim|required|min_length[3]|max_length[50]');
+		$this->form_validation->set_rules('Descripcion_estudio', 'Descripcion_estudio', 'trim|required|min_length[10]|max_length[200]');
+
+
+		if ($this->form_validation->run() === false) {
+			$this->load->view('header');
+			$this->load->view('user/administrador/crearCuestionario', $data);
+			$this->load->view('footer');
+
+		} else {
+
+			$Nombre_estudio = $this->input->post('Nombre_estudio');
+			$Descripcion_estudio = $this->input->post('Descripcion_estudio');
+
+			if ($this->user_model->crearEstudio($Nombre_estudio, $Descripcion_estudio)) {
+				$this->load->view('header');
+				$this->load->view('user/administrador/main_administrador', $data);
+				$this->load->view('footer');
+
+			} else {
+				$data->error = 'Hubo un problema creando tu estudio :c Por favor inténtalo de nuevo.';
+				$this->load->view('header');
+				$this->load->view('user/administrador/main_administrado', $data);				
+				//$this->load->view('user/administrador/crearEstudio_view', $data);
+				$this->load->view('footer');
+			}
+		}
+	}
+
+
+
+	public function verEstudios(){
+
+		$data = new stdClass();
+		
+		// carga form helper y libreria de validacion  
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+
+		//if(getEstudios() == true){
+			$this->load->view('header');
+			$this->load->view('user/administrador/main_administrador', $data);
+			$this->load->view('footer');	
+		//}
+
+
+	}
+
+
+
 	
 }

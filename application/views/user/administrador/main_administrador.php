@@ -12,13 +12,31 @@
         <h1>Main de administrador</h1>
         <h2>Estudios</h2>
         <div class="form-group">
-            <input type="submit" class="btnEstudios" value="Ver Estudios">
-            <input type="submit" class="btnEstudioNuevo" value="Crea nuevo Estudio" >
+             <form method="" action="<?php echo base_url(); ?>User/verEstudios">
+                <input type="submit" class="btnEstudios" value="Ver Estudios">
+            </form>
+            <form method="" action="<?php echo base_url(); ?>User/creacionEstudios">
+                <input type="submit" class="btnEstudioNuevo" value="Crear Estudio"    > 
+             </form>
+        <div class="form-group">
+            <input type='submit' class="btnUsuarioModificar"value = "Modificar Estudio">
+            <input type='submit' class="btnEliminar"value = "Eliminar Estudio" >
+        </div>
+
+        
+        <h2>Cuestionarios</h2>
+        <div class="form-group">
+            <input type="submit" class="btnUsuarios" value="Ver Cuestionario">
+            <form method="" action="<?php echo base_url(); ?>User/creacionCuestionario">
+            <input type='submit' class="btnUsuarioTipo"value = "Crear cuestionario">
+        </form>
         </div>
         <div class="form-group">
-            <input type="submit" class="btnEstudioModificado" value="Modificar Estudio" > 
-            <input type="submit" class="btnEliminar" value="Eliminar estudio" > 
+            <input type='submit' class="btnUsuarioModificar"value = "Modificar cuestionario">
+            <input type='submit' class="btnEliminar"value = "Eliminar cuestionario" >
         </div>
+        </div>
+        
         <h2>Usuarios</h2>
         <div class="form-group">
          <input type="submit" class="btnUsuarios" value="Lista Usuarios">

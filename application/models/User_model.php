@@ -134,5 +134,31 @@ class User_model extends CI_Model {
 		return password_verify($password, $hash);
 		
 	}
+
+
+	public function crearEstudio($Nombre_estudio, $Descripcion_estudio){
+
+		$data = array(
+			'Nombre_estudio' => $Nombre_estudio,
+			'Descripcion_estudio' => $Descripcion_estudio
+		);
+		return $this->db->insert('estudioBienHecho', $data);
+	}
+
+	public function crearCuestionario(){
+
+		//Agregar a tabla de preguntas
+		$data = array(
+
+		);
+		return $this->db->insert('nombreTabla',$data);
+
+	}
+
+
+
+	public function getEstudios(){
+		return $this->db->get('estudiobienhecho');
+	}
 	
 }
