@@ -30,11 +30,17 @@
 			<?= form_open() ?>
 				<div class="form-group" >
 					<label for="Nombre_estudio">Pregunta 1</label>
-                    <input type="text" class="form-control" id="Nombre_estudio" name="Nombre_estudio" placeholder="Agrega una pregunta">
+                    <input type="text" class="form-control" id="Pregunta1" name="Pregunta1" placeholder="Agrega una pregunta">
                     <label for="Nombre_estudio">Pregunta 2</label>
-                    <input type="text" class="form-control" id="Nombre_estudio" name="Nombre_estudio" placeholder="Agrega una pregunta">
+                    <input type="text" class="form-control" id="Pregunta2" name="Pregunta2" placeholder="Agrega una pregunta">
                     <label for="Nombre_estudio">Pregunta 3</label>
-					<input type="text" class="form-control" id="Nombre_estudio" name="Nombre_estudio" placeholder="Agrega una pregunta">
+					<input type="text" class="form-control" id="Pregunta3" name="Pregunta3" placeholder="Agrega una pregunta">
+					<label for="Nombre_estudio">Pregunta 4</label>
+					<input type="text" class="form-control" id="Pregunta3" name="Pregunta3" placeholder="Agrega una pregunta">
+					<label for="Nombre_estudio">Pregunta 5</label>
+					<input type="text" class="form-control" id="Pregunta3" name="Pregunta3" placeholder="Agrega una pregunta">
+					<label for="Nombre_estudio">Pregunta 6</label>
+					<input type="text" class="form-control" id="Pregunta3" name="Pregunta3" placeholder="Agrega una pregunta">
 				</div>
 				
 				<div class="form-group" id = "boton">

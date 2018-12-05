@@ -270,8 +270,17 @@ class User extends CI_Controller {
 		$this->load->library('form_validation');
 		
 		// Reglas de validacion
-		$this->form_validation->set_rules('Nombre_estudio', 'Nombre_estudio', 'trim|required|min_length[3]|max_length[50]');
-		$this->form_validation->set_rules('Descripcion_estudio', 'Descripcion_estudio', 'trim|required|min_length[10]|max_length[200]');
+		$this->form_validation->set_rules('Pregunta1', 'Pregunta1', 'trim|required|min_length[5]|max_length[50]');
+		$this->form_validation->set_rules('Pregunta2', 'Pregunta2', 'trim|required|min_length[5]|max_length[50]');
+		$this->form_validation->set_rules('Pregunta3', 'Pregunta3', 'trim|required|min_length[5]|max_length[50]');
+		$this->form_validation->set_rules('Pregunta4', 'Pregunta4', 'trim|min_length[5]|max_length[50]');
+		$this->form_validation->set_rules('Pregunta5', 'Pregunta5', 'trim|min_length[5]|max_length[50]');
+		$this->form_validation->set_rules('Pregunta6', 'Pregunta6', 'trim|min_length[5]|max_length[50]');
+		$this->form_validation->set_rules('Pregunta7', 'Pregunta7', 'trim|min_length[5]|max_length[50]');
+		$this->form_validation->set_rules('Pregunta8', 'Pregunta8', 'trim|min_length[5]|max_length[50]');
+
+
+
 
 
 		if ($this->form_validation->run() === false) {
