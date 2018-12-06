@@ -29,32 +29,22 @@
 			</div>
 			<?= form_open() ?>
 				<div class="form-group" style="text-align:center;" >
-					<label for="Nombre_estudio">Pon nombre a tu cuestionario</label>
-                    <input type="text" class="form-control" id="Nombre_cuestionario" name="Nombre_cuestionario" placeholder="Nombre del cuestionario">
+					<label for="Nombre_estudio">Agrega una pregunta al cuestionario</label>
+                    <input type="text" class="form-control" id="reactivo" name="reactivo" placeholder="¿Pregunta?">
 				</div>
 
 
 			<div class = "form-group">
        			<select class="form-control">
            	 		<?php 
-						foreach ($Nombre_estudio as $row) {
-							echo '<option value="' . $row->id_estudio . '">' . $row->Nombre_estudio . '</option>';
-						}
-					?>
+                foreach ($Nombre_cuestionario as $row) {
+                    echo '<option value="' . $row->Nombre_cuestionario . '">' . $row->Nombre_cuestionario . '</option>';
+                }
+                ?>
             	</select>
 			</div>
-
-
-
-
-
-
-
-
-
-				
 				<div class="form-group" id = "boton">
-					<input type="submit" class="btn btn-default" value="Crea un cuestionario">
+					<input type="submit" class="btn btn-default" value="Agrega una pregunta">
 				</div>
 			</form>
 		</div>

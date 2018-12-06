@@ -145,20 +145,34 @@ class User_model extends CI_Model {
 		return $this->db->insert('estudioBienHecho', $data);
 	}
 
-	public function crearCuestionario(){
+	public function crearCuestionario($Nombre_cuestionario,$id_estudio){
 
 		//Agregar a tabla de preguntas
 		$data = array(
-
+			'Nombre_cuestionario' => $Nombre_cuestionario,
+			'id_estdui'  => $id_estudio
 		);
-		return $this->db->insert('nombreTabla',$data);
+		return $this->db->insert('cuestionariobienhecho',$data);
+	}
+	public function get_cuestionario(){
+		$query = $this->db->query('SELECT Nombre_cuestionario FROM cuestionariobienhecho');
+		return $query->result();
+	}
 
+	public function crearpregunta($reactivo){
+		$data = array(
+			'reactivo' => $reactivo
+		);
+		return $this->db->insert('reactivo',$data);
 	}
 
 
 
-	public function getEstudios(){
-		return $this->db->get('estudiobienhecho');
+	public function get_estudios(){
+		$query = $this->db->query('SELECT Nombre_estudio FROM estudiobienhecho');
+		return $query->result();
 	}
-	
+
 }
+
+

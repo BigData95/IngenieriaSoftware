@@ -133,7 +133,7 @@ class User extends CI_Controller {
 				$usuario    = $this->user_model->get_user($user_id);
 				$tipoUsuario = $this->user_model->obtenTipoUsuario($username);
 				
-				// Establece datos de usuario para la sesion       ///MODIFICAR SEGUN LA NUEVA BASE DE DATAOS
+				// Establece datos de usuario para la sesion       
 				$_SESSION['user_id']      = (int)$usuario->id_usuario;  //Se modifico de id
 				$_SESSION['username']     = (string)$usuario->username;
 				$_SESSION['logged_in']    = (bool)true;
@@ -223,6 +223,9 @@ class User extends CI_Controller {
 	// crea el objeto de datos
 		$data = new stdClass();
 		
+
+	
+		
 		// carga form helper y libreria de validacion  
 		$this->load->helper('form');
 		$this->load->library('form_validation');
@@ -263,22 +266,18 @@ class User extends CI_Controller {
 	}
 
 	public function creacionCuestionario(){
-		$data = new stdClass();
+		//$data = new stdClass();
 		
 		// carga form helper y libreria de validacion  
 		$this->load->helper('form');
 		$this->load->library('form_validation');
+
+
 		
 		// Reglas de validacion
-		$this->form_validation->set_rules('Pregunta1', 'Pregunta1', 'trim|required|min_length[5]|max_length[50]');
-		$this->form_validation->set_rules('Pregunta2', 'Pregunta2', 'trim|required|min_length[5]|max_length[50]');
-		$this->form_validation->set_rules('Pregunta3', 'Pregunta3', 'trim|required|min_length[5]|max_length[50]');
-		$this->form_validation->set_rules('Pregunta4', 'Pregunta4', 'trim|min_length[5]|max_length[50]');
-		$this->form_validation->set_rules('Pregunta5', 'Pregunta5', 'trim|min_length[5]|max_length[50]');
-		$this->form_validation->set_rules('Pregunta6', 'Pregunta6', 'trim|min_length[5]|max_length[50]');
-		$this->form_validation->set_rules('Pregunta7', 'Pregunta7', 'trim|min_length[5]|max_length[50]');
-		$this->form_validation->set_rules('Pregunta8', 'Pregunta8', 'trim|min_length[5]|max_length[50]');
+		$this->form_validation->set_rules('Nombre_cuestionario', 'Nombre cuestionario', 'trim|required|min_length[5]|max_length[50]');
 
+		$data['Nombre_estudio'] = $this->user_model->get_estudios();
 
 
 
@@ -290,22 +289,63 @@ class User extends CI_Controller {
 
 		} else {
 
-			$Nombre_estudio = $this->input->post('Nombre_estudio');
-			$Descripcion_estudio = $this->input->post('Descripcion_estudio');
+			$Nombre_cuestionario = $this->input->post('Nombre_cuestionario');
+			$id_estudio = 4;
+			if ($this->user_model->crearCuestionario($Nombre_cuestionario,$id_estudio)) {
 
-			if ($this->user_model->crearEstudio($Nombre_estudio, $Descripcion_estudio)) {
+
 				$this->load->view('header');
 				$this->load->view('user/administrador/main_administrador', $data);
 				$this->load->view('footer');
 
 			} else {
-				$data->error = 'Hubo un problema creando tu estudio :c Por favor inténtalo de nuevo.';
+				$data->error = 'Hubo un problema creando tu cuestionario :c Por favor inténtalo de nuevo.';
 				$this->load->view('header');
 				$this->load->view('user/administrador/main_administrado', $data);				
 				//$this->load->view('user/administrador/crearEstudio_view', $data);
 				$this->load->view('footer');
 			}
 		}
+	}
+
+
+	public function agregaPregunta(){
+
+		
+		// carga form helper y libreria de validacion  
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+
+
+		$this->form_validation->set_rules('reactivo', 'Pregunta', 'trim|min_length[5]|max_length[50]');
+		$data['Nombre_cuestionario'] = $this->user_model->get_cuestionario();
+
+
+		if ($this->form_validation->run() === false) {
+			$this->load->view('header');
+			$this->load->view('user/administrador/agregarPreguntas', $data);
+			$this->load->view('footer');
+
+		} else {
+
+			$reactivo = $this->input->post('reactivo');
+			if ($this->user_model->crearpregunta($reactivo)) {
+
+
+				$this->load->view('header');
+				$this->load->view('user/administrador/agregarPreguntas', $data);
+				$this->load->view('footer');
+
+			} else {
+				$data->error = 'Hubo un problema creando tu cuestionario :c Por favor inténtalo de nuevo.';
+				$this->load->view('header');
+				$this->load->view('user/administrador/main_administrado', $data);				
+				//$this->load->view('user/administrador/crearEstudio_view', $data);
+				$this->load->view('footer');
+			}
+		}
+
+
 	}
 
 

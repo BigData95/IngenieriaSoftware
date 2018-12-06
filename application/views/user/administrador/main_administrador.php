@@ -29,12 +29,19 @@
             <input type="submit" class="btnUsuarios" value="Ver Cuestionario">
             <form method="" action="<?php echo base_url(); ?>User/creacionCuestionario">
             <input type='submit' class="btnUsuarioTipo"value = "Crear cuestionario">
-        </form>
+            </form>
         </div>
+        <div class ="form-group">
+            <form method="" action="<?php echo base_url(); ?>User/agregaPregunta">
+            <input type='submit' class="btnUsuarioTipo"value = "Agrega preguntas a cuestionario">
+            </form>
+        </div>
+        
         <div class="form-group">
             <input type='submit' class="btnUsuarioModificar"value = "Modificar cuestionario">
             <input type='submit' class="btnEliminar"value = "Eliminar cuestionario" >
         </div>
+
         </div>
         
         <h2>Usuarios</h2>
